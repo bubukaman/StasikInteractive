@@ -60,10 +60,17 @@
 
     .game-selection {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .game-boxes {
+      display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      margin-top: 40px;
     }
 
     .game-box {
@@ -185,14 +192,15 @@
   <p class="subtitle">Известны играми "Мир Танкования" и "Приключение Инвалида"</p>
   <button id="startBtn">Начать</button>
 
-  <div class="selection-back hidden" id="selectionBack" onclick="goBack()">⬅ Назад</div>
-
   <div class="game-selection hidden" id="gameSelection">
-    <div class="game-box" style="background-image: url('image1.jpg');" onclick="selectGame('invalid')">
-      <div class="game-title">Приключение Инвалида</div>
-    </div>
-    <div class="game-box" style="background-image: url('image2.jpg');" onclick="selectGame('tank')">
-      <div class="game-title">Мир Танкования</div>
+    <div class="selection-back visible" onclick="goBack()">⬅ Назад</div>
+    <div class="game-boxes">
+      <div class="game-box" style="background-image: url('image1.jpg');" onclick="selectGame('invalid')">
+        <div class="game-title">Приключение Инвалида</div>
+      </div>
+      <div class="game-box" style="background-image: url('image2.jpg');" onclick="selectGame('tank')">
+        <div class="game-title">Мир Танкования</div>
+      </div>
     </div>
   </div>
 
@@ -219,7 +227,6 @@
     const descBox = document.getElementById('gameDescription');
     const modal = document.getElementById('modal');
     const backArrow = document.getElementById('backArrow');
-    const selectionBack = document.getElementById('selectionBack');
 
     let currentView = 'home';
 
@@ -228,13 +235,11 @@
       document.querySelector('.welcome').classList.add('hidden');
       document.querySelector('.subtitle').classList.add('hidden');
       gameSelection.classList.remove('hidden');
-      selectionBack.classList.add('visible');
       currentView = 'selection';
     });
 
     function selectGame(game) {
       gameSelection.classList.add('hidden');
-      selectionBack.classList.remove('visible');
       gamePage.classList.remove('hidden');
       backArrow.classList.remove('hidden');
       currentView = 'game';
@@ -269,12 +274,10 @@
       if (currentView === 'game') {
         gamePage.classList.add('hidden');
         gameSelection.classList.remove('hidden');
-        selectionBack.classList.add('visible');
         backArrow.classList.add('hidden');
         currentView = 'selection';
       } else if (currentView === 'selection') {
         gameSelection.classList.add('hidden');
-        selectionBack.classList.remove('visible');
         document.querySelector('.welcome').classList.remove('hidden');
         document.querySelector('.subtitle').classList.remove('hidden');
         startBtn.classList.remove('hidden');
