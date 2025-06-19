@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stas Interactive</title>
+  <title>Stasik Interactive</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
@@ -153,6 +153,20 @@
       user-select: none;
     }
 
+    .selection-back {
+      display: none;
+    }
+
+    .selection-back.visible {
+      display: block;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #00ffe5;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
     footer {
       margin-top: 60px;
       font-size: 1rem;
@@ -167,9 +181,11 @@
 <body>
   <div class="back-arrow hidden" id="backArrow" onclick="goBack()">⬅</div>
 
-  <h1 class="welcome">Добро пожаловать в Stas Interactive</h1>
+  <h1 class="welcome">Добро пожаловать в Stasik Interactive</h1>
   <p class="subtitle">Известны играми "Мир Танкования" и "Приключение Инвалида"</p>
   <button id="startBtn">Начать</button>
+
+  <div class="selection-back hidden" id="selectionBack" onclick="goBack()">⬅ Назад</div>
 
   <div class="game-selection hidden" id="gameSelection">
     <div class="game-box" style="background-image: url('image1.jpg');" onclick="selectGame('invalid')">
@@ -203,6 +219,7 @@
     const descBox = document.getElementById('gameDescription');
     const modal = document.getElementById('modal');
     const backArrow = document.getElementById('backArrow');
+    const selectionBack = document.getElementById('selectionBack');
 
     let currentView = 'home';
 
@@ -211,12 +228,13 @@
       document.querySelector('.welcome').classList.add('hidden');
       document.querySelector('.subtitle').classList.add('hidden');
       gameSelection.classList.remove('hidden');
-      backArrow.classList.remove('hidden');
+      selectionBack.classList.add('visible');
       currentView = 'selection';
     });
 
     function selectGame(game) {
       gameSelection.classList.add('hidden');
+      selectionBack.classList.remove('visible');
       gamePage.classList.remove('hidden');
       backArrow.classList.remove('hidden');
       currentView = 'game';
@@ -251,13 +269,15 @@
       if (currentView === 'game') {
         gamePage.classList.add('hidden');
         gameSelection.classList.remove('hidden');
+        selectionBack.classList.add('visible');
+        backArrow.classList.add('hidden');
         currentView = 'selection';
       } else if (currentView === 'selection') {
         gameSelection.classList.add('hidden');
+        selectionBack.classList.remove('visible');
         document.querySelector('.welcome').classList.remove('hidden');
         document.querySelector('.subtitle').classList.remove('hidden');
         startBtn.classList.remove('hidden');
-        backArrow.classList.add('hidden');
         currentView = 'home';
       }
     }
