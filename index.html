@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stasik Interactive</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       font-family: 'Russo One', sans-serif;
@@ -24,20 +22,18 @@
       text-align: center;
       overflow-x: hidden;
       padding: 20px;
+      position: relative;
     }
-
     h1 {
       font-size: 3rem;
       color: #00ffe5;
       margin-bottom: 0.5em;
     }
-
     p {
       font-size: 1.2rem;
       color: #aaa;
       margin: 0.5em 0;
     }
-
     button {
       background-color: #00ffe5;
       color: #000;
@@ -49,15 +45,12 @@
       transition: background-color 0.3s;
       margin-top: 20px;
     }
-
     button:hover {
       background-color: #00ccbb;
     }
-
     .hidden {
       display: none !important;
     }
-
     .game-selection {
       display: flex;
       flex-direction: column;
@@ -65,14 +58,12 @@
       gap: 20px;
       margin-top: 40px;
     }
-
     .game-boxes {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
     }
-
     .game-box {
       width: 250px;
       height: 150px;
@@ -88,11 +79,9 @@
       padding: 10px;
       box-shadow: 0 0 10px #00ffe566;
     }
-
     .game-box:hover {
       transform: scale(1.05);
     }
-
     .game-title {
       background: rgba(0, 0, 0, 0.5);
       padding: 4px 8px;
@@ -102,7 +91,6 @@
       width: 100%;
       text-align: center;
     }
-
     .description-box {
       background-color: #222;
       padding: 20px;
@@ -110,8 +98,8 @@
       border-radius: 15px;
       max-width: 800px;
       color: #eee;
+      position: relative;
     }
-
     iframe {
       margin-top: 20px;
       width: 100%;
@@ -119,23 +107,17 @@
       height: 360px;
       border: none;
     }
-
     .modal {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0, 0, 0, 0.7);
       display: none;
       align-items: center;
       justify-content: center;
     }
-
     .modal.show {
       display: flex;
     }
-
     .modal-content {
       background: #222;
       padding: 30px;
@@ -143,12 +125,10 @@
       text-align: center;
       max-width: 400px;
     }
-
     .modal-content button {
       margin-top: 20px;
       margin-right: 10px;
     }
-
     .back-arrow {
       position: absolute;
       top: 20px;
@@ -159,11 +139,9 @@
       display: none;
       user-select: none;
     }
-
     .selection-back {
       display: none;
     }
-
     .selection-back.visible {
       display: block;
       margin-top: 20px;
@@ -173,12 +151,10 @@
       border: none;
       background: none;
     }
-
     footer {
       margin-top: 60px;
       font-size: 1rem;
     }
-
     footer a {
       color: #00ffe5;
       text-decoration: none;
@@ -193,7 +169,7 @@
   <button id="startBtn">Начать</button>
 
   <div class="game-selection hidden" id="gameSelection">
-    <div class="selection-back visible" onclick="goBack()">⬅ Назад</div>
+    <div class="selection-back visible" id="selectionBack" onclick="goBack()">⬅ Назад</div>
     <div class="game-boxes">
       <div class="game-box" style="background-image: url('image1.jpg');" onclick="selectGame('invalid')">
         <div class="game-title">Приключение Инвалида</div>
@@ -227,6 +203,7 @@
     const descBox = document.getElementById('gameDescription');
     const modal = document.getElementById('modal');
     const backArrow = document.getElementById('backArrow');
+    const selectionBack = document.getElementById('selectionBack');
 
     let currentView = 'home';
 
@@ -235,6 +212,7 @@
       document.querySelector('.welcome').classList.add('hidden');
       document.querySelector('.subtitle').classList.add('hidden');
       gameSelection.classList.remove('hidden');
+      selectionBack.classList.add('visible');
       currentView = 'selection';
     });
 
@@ -242,16 +220,14 @@
       gameSelection.classList.add('hidden');
       gamePage.classList.remove('hidden');
       backArrow.classList.remove('hidden');
+      selectionBack.classList.remove('visible');
       currentView = 'game';
 
       if (game === 'tank') {
         descBox.innerHTML = `
           <img src="image2.jpg" alt="Мир Танкования" style="width: 100%; border-radius: 12px;">
-          <p><strong>Приготовьтесь сразится!</strong> Захватывающие, невероятные бои с <strong>4К графикой</strong>, и невероятными деталями, тенями, физикой разрушения.</p>
-          <p><strong>Мир Танкования</strong> — Легендарная игра, которой вдохновлялись создатели других игр про танки, однако они и близко не стоят.</p>
-          <p>Игра поддерживает <strong>шейдеры Nvidia</strong>, и удивляет своими деталями.</p>
-          <p><strong>44 международных награды</strong>.</p>
-          <button onclick="openModal()">Скачать</button>
+          <p><strong>На данный момент, "Мир Танкования" ещё не вышел.</strong><br>Следите за новостями на нашем YouTube канале..</p>
+          <button onclick="goBack()">⬅ Назад</button>
         `;
       } else if (game === 'invalid') {
         descBox.innerHTML = `
@@ -266,6 +242,7 @@
           из самолётов сверху. Вы можете делать трюки на коляске и экспериментировать — всё, что вы желаете.</p>
           <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
           <button onclick="openModal()">Скачать</button>
+          <button onclick="goBack()">⬅ Назад</button>
         `;
       }
     }
@@ -275,12 +252,14 @@
         gamePage.classList.add('hidden');
         gameSelection.classList.remove('hidden');
         backArrow.classList.add('hidden');
+        selectionBack.classList.add('visible');
         currentView = 'selection';
       } else if (currentView === 'selection') {
         gameSelection.classList.add('hidden');
         document.querySelector('.welcome').classList.remove('hidden');
         document.querySelector('.subtitle').classList.remove('hidden');
         startBtn.classList.remove('hidden');
+        selectionBack.classList.remove('visible');
         currentView = 'home';
       }
     }
