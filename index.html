@@ -12,8 +12,8 @@
     body {
       margin: 0;
       font-family: 'Russo One', sans-serif;
-      background-color: #111;
-      color: #fff;
+      background: linear-gradient(135deg, #27187E, #758BFD);
+      color: #F1F2F6;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,30 +23,37 @@
       overflow-x: hidden;
       padding: 20px;
       position: relative;
+      text-shadow: 0 0 4px rgba(0,0,0,0.4);
     }
     h1 {
       font-size: 3rem;
-      color: #00ffe5;
+      color: #FF8600;
       margin-bottom: 0.5em;
+      text-shadow: 0 0 8px #FF8600aa;
     }
     p {
       font-size: 1.2rem;
-      color: #aaa;
+      color: #AEB8FE;
       margin: 0.5em 0;
+      text-shadow: 0 0 3px rgba(0,0,0,0.3);
     }
     button {
-      background-color: #00ffe5;
-      color: #000;
+      background-color: #FF8600;
+      color: #27187E;
       border: none;
       padding: 14px 28px;
       font-size: 1.1rem;
       cursor: pointer;
       border-radius: 12px;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, box-shadow 0.3s;
       margin-top: 20px;
+      box-shadow: 0 0 12px #FF8600aa;
+      font-weight: 700;
+      text-shadow: none;
     }
     button:hover {
-      background-color: #00ccbb;
+      background-color: #e67300;
+      box-shadow: 0 0 20px #e67300cc;
     }
     .hidden {
       display: none !important;
@@ -67,38 +74,42 @@
     .game-box {
       width: 250px;
       height: 150px;
-      background-color: #222;
-      border: 3px solid #00ffe5;
+      background-color: #27187E;
+      border: 3px solid #FF8600;
       border-radius: 12px;
       background-size: cover;
       background-position: center;
       cursor: pointer;
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
       align-items: flex-end;
       padding: 10px;
-      box-shadow: 0 0 10px #00ffe566;
+      box-shadow: 0 0 15px #FF8600aa;
     }
     .game-box:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 25px #e67300dd;
     }
     .game-title {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 4px 8px;
-      border-radius: 6px;
+      background: rgba(39, 24, 126, 0.75);
+      padding: 6px 10px;
+      border-radius: 8px;
       font-size: 1rem;
-      color: #fff;
+      color: #F1F2F6;
       width: 100%;
       text-align: center;
+      text-shadow: 0 0 4px rgba(0,0,0,0.8);
     }
     .description-box {
-      background-color: #222;
+      background-color: #27187E;
       padding: 20px;
       margin-top: 30px;
       border-radius: 15px;
       max-width: 800px;
-      color: #eee;
+      color: #F1F2F6;
       position: relative;
+      box-shadow: 0 0 20px #FF8600aa;
+      text-shadow: 0 0 3px rgba(0,0,0,0.5);
     }
     iframe {
       margin-top: 20px;
@@ -106,28 +117,47 @@
       max-width: 640px;
       height: 360px;
       border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #FF8600aa;
     }
     .modal {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(39, 24, 126, 0.9);
       display: none;
       align-items: center;
       justify-content: center;
+      z-index: 1000;
     }
     .modal.show {
       display: flex;
     }
     .modal-content {
-      background: #222;
+      background: #758BFD;
       padding: 30px;
       border-radius: 12px;
       text-align: center;
       max-width: 400px;
+      box-shadow: 0 0 30px #FF8600cc;
+      color: #27187E;
+      text-shadow: none;
     }
     .modal-content button {
       margin-top: 20px;
       margin-right: 10px;
+      background-color: #FF8600;
+      color: #27187E;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 12px #FF8600aa;
+      font-weight: 700;
+    }
+    .modal-content button:hover {
+      background-color: #e67300;
+      box-shadow: 0 0 20px #e67300cc;
     }
     .back-arrow {
       position: absolute;
@@ -135,9 +165,10 @@
       left: 20px;
       font-size: 2rem;
       cursor: pointer;
-      color: #00ffe5;
+      color: #FF8600;
       display: none;
       user-select: none;
+      text-shadow: 0 0 8px #FF8600;
     }
     .selection-back {
       display: none;
@@ -146,18 +177,27 @@
       display: block;
       margin-top: 20px;
       font-size: 1.2rem;
-      color: #00ffe5;
+      color: #FF8600;
       cursor: pointer;
       border: none;
       background: none;
+      text-shadow: 0 0 8px #FF8600;
     }
     footer {
       margin-top: 60px;
       font-size: 1rem;
+      color: #AEB8FE;
+      text-shadow: 0 0 3px rgba(0,0,0,0.4);
     }
     footer a {
-      color: #00ffe5;
+      color: #FF8600;
       text-decoration: none;
+      text-shadow: 0 0 5px #FF8600aa;
+      font-weight: 700;
+    }
+    footer a:hover {
+      color: #e67300;
+      text-shadow: 0 0 10px #e67300cc;
     }
   </style>
 </head>
