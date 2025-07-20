@@ -1,324 +1,166 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stasik Interactive</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Russo One', sans-serif;
-      background: linear-gradient(135deg, #03045E, #0077B6);
-      color: #CAF0F8;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      text-align: center;
-      overflow-x: hidden;
-      padding: 20px;
-      position: relative;
-      text-shadow: 0 0 4px rgba(0,0,0,0.5);
-    }
-    h1 {
-      font-size: 3rem;
-      color: #00B4D8;
-      margin-bottom: 0.5em;
-      text-shadow: 0 0 10px #00B4D8cc;
-    }
-    p {
-      font-size: 1.2rem;
-      color: #90E0EF;
-      margin: 0.5em 0;
-      text-shadow: 0 0 3px rgba(0,0,0,0.4);
-    }
-    button {
-      background-color: #00B4D8;
-      color: #03045E;
-      border: none;
-      padding: 14px 28px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: background-color 0.3s, box-shadow 0.3s;
-      margin-top: 20px;
-      box-shadow: 0 0 15px #00B4D8aa;
-      font-weight: 700;
-      text-shadow: none;
-    }
-    button:hover {
-      background-color: #0077B6;
-      box-shadow: 0 0 25px #0077B6cc;
-    }
-    .hidden {
-      display: none !important;
-    }
-    .game-selection {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      margin-top: 40px;
-    }
-    .game-boxes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-    .game-box {
-      width: 250px;
-      height: 150px;
-      background-color: #03045E;
-      border: 3px solid #00B4D8;
-      border-radius: 12px;
-      background-size: cover;
-      background-position: center;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      align-items: flex-end;
-      padding: 10px;
-      box-shadow: 0 0 20px #00B4D8aa;
-    }
-    .game-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #0077B6dd;
-    }
-    .game-title {
-      background: rgba(3, 4, 94, 0.75);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 1rem;
-      color: #CAF0F8;
-      width: 100%;
-      text-align: center;
-      text-shadow: 0 0 6px rgba(0,0,0,0.7);
-    }
-    .description-box {
-      background-color: #03045E;
-      padding: 20px;
-      margin-top: 30px;
-      border-radius: 15px;
-      max-width: 800px;
-      color: #CAF0F8;
-      position: relative;
-      box-shadow: 0 0 25px #00B4D8aa;
-      text-shadow: 0 0 4px rgba(0,0,0,0.5);
-    }
-    iframe {
-      margin-top: 20px;
-      width: 100%;
-      max-width: 640px;
-      height: 360px;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #00B4D8aa;
-    }
-    .modal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(3, 4, 94, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .modal.show {
-      display: flex;
-    }
-    .modal-content {
-      background: #0077B6;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 400px;
-      box-shadow: 0 0 35px #00B4D8cc;
-      color: #CAF0F8;
-      text-shadow: none;
-    }
-    .modal-content button {
-      margin-top: 20px;
-      margin-right: 10px;
-      background-color: #00B4D8;
-      color: #03045E;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s, box-shadow 0.3s;
-      box-shadow: 0 0 15px #00B4D8aa;
-      font-weight: 700;
-    }
-    .modal-content button:hover {
-      background-color: #0077B6;
-      box-shadow: 0 0 30px #0077B6cc;
-    }
-    .back-arrow {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 2rem;
-      cursor: pointer;
-      color: #00B4D8;
-      display: none;
-      user-select: none;
-      text-shadow: 0 0 8px #00B4D8;
-    }
-    .selection-back {
-      display: none;
-    }
-    .selection-back.visible {
-      display: block;
-      margin-top: 20px;
-      font-size: 1.2rem;
-      color: #00B4D8;
-      cursor: pointer;
-      border: none;
-      background: none;
-      text-shadow: 0 0 8px #00B4D8;
-    }
-    footer {
-      margin-top: 60px;
-      font-size: 1rem;
-      color: #90E0EF;
-      text-shadow: 0 0 4px rgba(0,0,0,0.4);
-    }
-    footer a {
-      color: #00B4D8;
-      text-decoration: none;
-      text-shadow: 0 0 6px #00B4D8aa;
-      font-weight: 700;
-    }
-    footer a:hover {
-      color: #0077B6;
-      text-shadow: 0 0 12px #0077B6cc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Stasik Interactive</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 40px;
+            overflow-x: hidden;
+            transition: all 0.6s;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 1s forwards;
+        }
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        img.logo {
+            width: 200px;
+            margin-bottom: 50px;
+            animation: fadeIn 2s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .button {
+            padding: 15px 40px;
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+        .button:hover {
+            background: white;
+            color: black;
+        }
+        section {
+            display: none;
+            animation: fadeIn 1s ease forwards;
+        }
+        .show {
+            display: block;
+        }
+        .game-section, .downloads-section {
+            text-align: center;
+            max-width: 700px;
+        }
+        .game-logo {
+            width: 300px;
+            margin: 30px 0;
+            animation: fadeIn 2s forwards;
+        }
+        .description {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-size: 18px;
+            opacity: 0;
+            animation: fadeIn 2s 1s forwards;
+        }
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #444;
+        }
+        th {
+            background-color: #111;
+        }
+        .download-btn {
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .download-btn:hover {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
-  <div class="back-arrow hidden" id="backArrow" onclick="goBack()">⬅</div>
+    <header>
+        <h1>Добро пожаловать!</h1>
+        <img src="logo.png" alt="Stasik Interactive Logo" class="logo">
+        <button class="button" onclick="showSection('apps')">Приложения</button>
+    </header>
 
-  <h1 class="welcome">Добро пожаловать в Stasik Interactive</h1>
-  <p class="subtitle">Известны играми "Приключение Инвалида" и "Приключения Инвалида 2"</p>
-  <button id="startBtn">Начать</button>
+    <section id="apps" class="game-section">
+        <h2>Приключения Инвалида: Скотобойня</h2>
+        <img src="game-logo.png" alt="Game Logo" class="game-logo">
+        <p class="description">
+            Легендарная игра, где, играя за инвалида, требуется стрелять магическими сферами по свиньям, удерживая заряд батареи.<br><br>
+            Каждая свинья особенная: некоторые взрываются, некоторые стреляют. Уникальная система волн, валюты и бесконечного экшена.<br><br>
+            Легендарный геймплей, графика, как и сам создатель.
+        </p>
+        <button class="button" onclick="showSection('downloads')">Скачать</button>
+    </section>
 
-  <div class="game-selection hidden" id="gameSelection">
-    <div class="selection-back visible" id="selectionBack" onclick="goBack()">⬅ Назад</div>
-    <div class="game-boxes">
-      <div class="game-box" style="background-image: url('image1.jpg');" onclick="selectGame('invalid')">
-        <div class="game-title">Приключение Инвалида</div>
-      </div>
-      <div class="game-box" style="background-image: url('image3.jpg');" onclick="selectGame('invalid2')">
-        <div class="game-title">Приключения Инвалида 2</div>
-      </div>
-    </div>
-  </div>
+    <section id="downloads" class="downloads-section">
+        <h2>Загрузки</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Версия</th>
+                    <th>Дата</th>
+                    <th>Размер</th>
+                    <th>Скачать</th>
+                    <th>Информация</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Prototype A</td>
+                    <td>20.07.2025</td>
+                    <td>108 МБ</td>
+                    <td><button class="download-btn" onclick="alert('Скачивание Prototype A')">Скачать</button></td>
+                    <td>Начальная версия Prototype A - самая первая, сырая. Многие механики, персонажи, и другие вещи будут изменены в будущем.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-  <div id="gamePage" class="hidden">
-    <div id="gameDescription" class="description-box"></div>
-  </div>
-
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <p>Вы уверены, что хотите скачать игру? После скачивания, другие игры станут вам неинтересны.</p>
-      <button onclick="proceedDownload()">Скачать</button>
-      <button onclick="closeModal()">Отмена</button>
-    </div>
-  </div>
-
-  <footer>
-    <p>Наш YouTube: <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" target="_blank">Посетить</a></p>
-  </footer>
-
-  <script>
-    const startBtn = document.getElementById('startBtn');
-    const gameSelection = document.getElementById('gameSelection');
-    const gamePage = document.getElementById('gamePage');
-    const descBox = document.getElementById('gameDescription');
-    const modal = document.getElementById('modal');
-    const backArrow = document.getElementById('backArrow');
-    const selectionBack = document.getElementById('selectionBack');
-
-    let currentView = 'home';
-
-    startBtn.addEventListener('click', () => {
-      startBtn.classList.add('hidden');
-      document.querySelector('.welcome').classList.add('hidden');
-      document.querySelector('.subtitle').classList.add('hidden');
-      gameSelection.classList.remove('hidden');
-      selectionBack.classList.add('visible');
-      currentView = 'selection';
-    });
-
-    function selectGame(game) {
-      gameSelection.classList.add('hidden');
-      gamePage.classList.remove('hidden');
-      backArrow.classList.remove('hidden');
-      selectionBack.classList.remove('visible');
-      currentView = 'game';
-
-      if (game === 'invalid') {
-        descBox.innerHTML = `
-          <img src="image1.jpg" alt="Приключение Инвалида" style="width: 100%; border-radius: 12px;">
-          <p>Каждый из нас в детстве ехал под бомбами на инвалидной коляске, сбивая Халков.<br>Теперь, у вас есть возможность вспомнить, как вы это делали.</p>
-          <hr>
-          <h2>ОПИСАНИЕ ИГРЫ</h2>
-          <p>Игра "Приключения Инвалида" — захватывающая и уникальная игра, которая развивает мышление и умственные способности.<br>
-          В ней вы играете за Боба, человека на инвалидной коляске, который выполняет трюки и отбивается от халков, спасая свою жизнь.</p>
-          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-          <button onclick="openModal()">Скачать</button>
-          <button onclick="goBack()">⬅ Назад</button>
-        `;
-      } else if (game === 'invalid2') {
-        descBox.innerHTML = `
-          <img src="image3.jpg" alt="Приключения Инвалида 2" style="width: 100%; border-radius: 12px;">
-          <p>Новая глава приключений Боба! Более динамичный геймплей, новые трюки и опасности.<br>Готовы испытать себя в экстремальных условиях?</p>
-          <hr>
-          <h2>ОПИСАНИЕ ИГРЫ</h2>
-          <p>"Приключения Инвалида 2" — продолжение легендарной игры, где Боб теперь сражается не только с халками, но и с новыми врагами.<br>
-          Улучшенная графика и механики подарят вам незабываемый игровой опыт!</p>
-          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-          <button onclick="openModal()">Скачать</button>
-          <button onclick="goBack()">⬅ Назад</button>
-        `;
-      }
-    }
-
-    function goBack() {
-      if (currentView === 'game') {
-        gamePage.classList.add('hidden');
-        gameSelection.classList.remove('hidden');
-        backArrow.classList.add('hidden');
-        selectionBack.classList.add('visible');
-        currentView = 'selection';
-      } else if (currentView === 'selection') {
-        gameSelection.classList.add('hidden');
-        document.querySelector('.welcome').classList.remove('hidden');
-        document.querySelector('.subtitle').classList.remove('hidden');
-        startBtn.classList.remove('hidden');
-        selectionBack.classList.remove('visible');
-        currentView = 'home';
-      }
-    }
-
-    function openModal() {
-      modal.classList.add('show');
-    }
-
-    function closeModal() {
-      modal.classList.remove('show');
-    }
-
-    function proceedDownload() {
-      closeModal();
-      alert("Скачивание началось! (перехода не будет, сайт тестовый)");
-    }
-  </script>
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(section => section.classList.remove('show'));
+            document.getElementById(id).classList.add('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
