@@ -1,166 +1,252 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html><html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Stasik Interactive</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-        body {
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            padding: 40px;
-            overflow-x: hidden;
-            transition: all 0.6s;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 100px;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInDown 1s forwards;
-        }
-        @keyframes fadeInDown {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        img.logo {
-            width: 200px;
-            margin-bottom: 50px;
-            animation: fadeIn 2s ease forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .button {
-            padding: 15px 40px;
-            border: 2px solid white;
-            color: white;
-            background: transparent;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-top: 30px;
-            transition: 0.3s;
-        }
-        .button:hover {
-            background: white;
-            color: black;
-        }
-        section {
-            display: none;
-            animation: fadeIn 1s ease forwards;
-        }
-        .show {
-            display: block;
-        }
-        .game-section, .downloads-section {
-            text-align: center;
-            max-width: 700px;
-        }
-        .game-logo {
-            width: 300px;
-            margin: 30px 0;
-            animation: fadeIn 2s forwards;
-        }
-        .description {
-            margin-bottom: 30px;
-            line-height: 1.6;
-            font-size: 18px;
-            opacity: 0;
-            animation: fadeIn 2s 1s forwards;
-        }
-        table {
-            width: 100%;
-            margin-top: 30px;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 15px;
-            border-bottom: 1px solid #444;
-        }
-        th {
-            background-color: #111;
-        }
-        .download-btn {
-            padding: 10px 20px;
-            background-color: white;
-            color: black;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .download-btn:hover {
-            background-color: #ddd;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stasik Interactive</title>
+  <style>
+    :root {
+      --bg: hsl(220, 15%, 8%);
+      --text: hsl(0, 0%, 95%);
+      --primary: hsl(280, 100%, 70%);
+      --accent: hsl(280, 100%, 80%);
+      --card-bg: hsl(220, 15%, 10%);
+      --border: hsl(220, 15%, 20%);
+      --gradient-primary: linear-gradient(135deg, var(--primary), var(--accent));
+      --gradient-card: linear-gradient(145deg, hsl(220, 15%, 12%), hsl(220, 15%, 8%));
+    }* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
+  display: none;
+  padding: 4rem 2rem;
+  position: relative;
+  animation: fade-in-up 1s ease-out forwards;
+}
+
+section.active {
+  display: block;
+}
+
+.hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  max-width: 600px;
+  opacity: 0.9;
+}
+
+.btn {
+  background: var(--gradient-primary);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  animation: glow-pulse 3s infinite;
+  transition: all 0.3s ease;
+  color: var(--text);
+  font-weight: bold;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.blur-circle {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: var(--accent);
+  filter: blur(100px);
+  border-radius: 50%;
+  animation: float 6s infinite ease-in-out;
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: var(--gradient-card);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--primary);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature {
+  background: var(--gradient-card);
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.download-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.download-table th,
+.download-table td {
+  border: 1px solid var(--border);
+  padding: 1rem;
+  text-align: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--card-bg);
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  z-index: 999;
+}
+
+.modal.active {
+  display: block;
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px hsl(280 100% 70% / 0.3); }
+  50% { box-shadow: 0 0 40px hsl(280 100% 70% / 0.6); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Добро пожаловать!</h1>
-        <img src="logo.png" alt="Stasik Interactive Logo" class="logo">
-        <button class="button" onclick="showSection('apps')">Приложения</button>
-    </header>
-
-    <section id="apps" class="game-section">
-        <h2>Приключения Инвалида: Скотобойня</h2>
-        <img src="game-logo.png" alt="Game Logo" class="game-logo">
-        <p class="description">
-            Легендарная игра, где, играя за инвалида, требуется стрелять магическими сферами по свиньям, удерживая заряд батареи.<br><br>
-            Каждая свинья особенная: некоторые взрываются, некоторые стреляют. Уникальная система волн, валюты и бесконечного экшена.<br><br>
-            Легендарный геймплей, графика, как и сам создатель.
-        </p>
-        <button class="button" onclick="showSection('downloads')">Скачать</button>
-    </section>
-
-    <section id="downloads" class="downloads-section">
-        <h2>Загрузки</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Версия</th>
-                    <th>Дата</th>
-                    <th>Размер</th>
-                    <th>Скачать</th>
-                    <th>Информация</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Prototype A</td>
-                    <td>20.07.2025</td>
-                    <td>108 МБ</td>
-                    <td><button class="download-btn" onclick="alert('Скачивание Prototype A')">Скачать</button></td>
-                    <td>Начальная версия Prototype A - самая первая, сырая. Многие механики, персонажи, и другие вещи будут изменены в будущем.</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <script>
-        function showSection(id) {
-            document.querySelectorAll('section').forEach(section => section.classList.remove('show'));
-            document.getElementById(id).classList.add('show');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
-</body>
+  <section id="welcome" class="active">
+    <div class="blur-circle" style="top: 10%; left: 10%;"></div>
+    <div class="blur-circle" style="top: 60%; left: 80%;"></div>
+    <div class="blur-circle" style="top: 80%; left: 30%;"></div>
+    <div class="hero">
+      <img src="assets/stasik-logo.png" alt="Stasik Logo" width="120" />
+      <h1>Добро пожаловать!</h1>
+      <p>Профессиональная разработка интерактивных игр и приложений</p>
+      <p>Мы создаём уникальные игровые миры с инновационными механиками, захватывающим геймплеем и потрясающей графикой</p>
+      <button class="btn" onclick="goTo('apps')">Приложения</button>
+    </div>
+  </section>  <section id="apps">
+    <button class="btn" onclick="goTo('welcome')">⬅ Назад</button>
+    <h2>Наши Приложения</h2>
+    <div class="apps-grid">
+      <div class="card">
+        <img src="assets/game-logo.png" alt="Game Logo" width="100%" />
+        <h3>Приключения Инвалида: Скотобойня</h3>
+        <p>Эпическая фэнтези-аркада с магическими сферами</p>
+        <small>Аркада, Фэнтези, Экшен</small><br>
+        <button class="btn" onclick="goTo('details')">Подробнее</button>
+      </div>
+      <div class="card">
+        <h3>Скоро...</h3>
+      </div>
+      <div class="card">
+        <h3>Скоро...</h3>
+      </div>
+    </div>
+  </section>  <section id="details">
+    <button class="btn" onclick="goTo('apps')">⬅ Назад</button>
+    <div class="hero">
+      <img src="assets/game-logo.png" alt="Game Logo" width="120" />
+      <h2>Приключения Инвалида: Скотобойня</h2>
+      <p>Легендарная игра, где, играя за отважного героя, требуется стрелять магическими сферами по опасным противникам, тщательно управляя энергией и ресурсами. Каждый враг уникален: некоторые взрываются при уничтожении, другие атакуют магическими снарядами. Продуманная система волн, валюты и бесконечного экшена создаёт захватывающий геймплей. Легендарный геймплей, потрясающая графика, как и сам создатель.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature">⚡ Магические сферы</div>
+      <div class="feature">🎯 Разнообразные враги</div>
+      <div class="feature">💰 Система валюты</div>
+      <div class="feature">🌊 Бесконечные волны</div>
+    </div>
+    <br>
+    <button class="btn" onclick="goTo('downloads')">Скачать игру</button>
+  </section>  <section id="downloads">
+    <button class="btn" onclick="goTo('details')">⬅ Назад</button>
+    <h2>Загрузки</h2>
+    <table class="download-table">
+      <thead>
+        <tr>
+          <th>Версия</th>
+          <th>Дата</th>
+          <th>Размер</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Prototype A <span style="color: var(--accent); font-weight: bold;">ALPHA</span></td>
+          <td>20.07.2025</td>
+          <td>108 МБ</td>
+          <td>
+            <button class="btn">Скачать</button>
+            <button class="btn" onclick="document.getElementById('modal').classList.add('active')">Информация</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>  <div class="modal" id="modal">
+    <p>Начальная версия Prototype A - самая первая, сырая. Многие механики, персонажи, и другие вещи будут изменены в будущем.</p>
+    <br>
+    <button class="btn" onclick="document.getElementById('modal').classList.remove('active')">Закрыть</button>
+  </div>  <script>
+    function goTo(id) {
+      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+  </script></body>
 </html>
